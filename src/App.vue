@@ -2,7 +2,7 @@
   <div id="app">
     <img alt="NicaSource logo" src="@/assets/logo.png" class="img-fluid d-block mx-auto" width="100">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Board</router-link> |
       <router-link to="/data">Data</router-link> |
       <router-link to="/setting">Settings</router-link>
     </div>
