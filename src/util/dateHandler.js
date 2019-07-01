@@ -35,4 +35,19 @@ export default class DateHandler {
     let weeklySprint = sprintWeek || this.weeklyTag
     return this.getFirstDateOfSprint(weeklySprint).add('5', 'd')
   };
+  /**
+   * Return if the date was within the sprint week
+   * @param [sprintWeek] - Weekly tag
+   * @param {String} [date] - Date story was created
+   * @return {boolean}
+   */
+  withinSprint (sprintWeek, date) {
+    let ldow = this.getLastDayOfSprint(sprintWeek)
+    let fdow = this.getFirstDateOfSprint(sprintWeek)
+    let delivered = moment(date)
+    let diffIn = delivered.diff(ldow, 'd', true)
+    let diffOut = fdow.diff(delivered, 'd', true)
+    console.log(diffOut)
+    return (diffIn > 0 || diffOut < 0)
+  }
 }
