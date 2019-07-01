@@ -1,0 +1,214 @@
+//$primary: #e43122;
+
+//$dark: #393b3c;
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+$error-color: #ff0000;
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid $primary !important;
+  -webkit-text-fill-color: #495057;
+  -webkit-box-shadow: 0 0 0px 1000px $white inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+::selection {
+  background: $primary; /* WebKit/Blink Browsers */
+  color: $white !important;
+}
+::-moz-selection {
+  background: $primary; /* Gecko Browsers */
+  color: $white !important;
+}
+
+a, label, p, th, td {
+  font-size: $font-size-base;
+}
+
+.uir-page-title, .uir-header-buttons {
+  display: none;
+}
+
+form[name='main_form'] {
+  padding: 0 !important;
+}
+
+.text {
+  font-size: $font-size-base !important;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.7s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+
+.slide-fade-leave-active {
+  transition: all .6s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */
+{
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.v-select {
+  background: $white;
+  border-radius: $input-border-radius;
+  & input[type=search], & input[type=search]:focus {
+    width: 100%;
+    margin: 1px 0;
+    line-height: normal;
+  }
+  & .dropdown-menu {
+    z-index: 2000 !important;
+
+  }
+  &.v-select.single .selected-tag {
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: calc(100% - 60px);
+  }
+}
+
+.has-error {
+  border-color: $error-color !important;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+input[type="text"], input[type="password"], select, textarea {
+  color: $input-color !important;
+  font-size: $font-size-base !important;
+  border: 1px solid $input-border-color !important;
+  padding: $input-padding-y $input-padding-x !important;
+}
+
+input[type="text"]:disabled, input[type="password"]:disabled, select:disabled, textarea:disabled, .dropdownDiv:disabled, .dropdownInput:disabled {
+  color: $input-color !important;
+  background: $input-disabled-bg !important;
+  border: 1px solid $input-border-color !important;
+}
+
+//Router
+$router-link-active-color: $white;
+$router-link-color: $white;
+$router-link-color-hover: $white;
+
+@function getTextColor($bg-color) {
+  @if (lightness($bg-color) < 40%) {
+    @return $gray-100;
+  } @else {
+    @return $gray-900;
+  }
+}
+
+;
+
+@function getLinkColor($bg-color) {
+  @if (lightness($bg-color) > 50%) {
+    @return $gray-900;
+  } @else {
+    @return $gray-100;
+  }
+}
+
+;
+
+@mixin defineItemColor($bg-color) {
+  background-color: $bg-color;
+  color: getTextColor($bg-color);
+
+  &:hover {
+    background-color: darken($bg-color, 5%);
+  }
+  .item-link {
+    color: getLinkColor($bg-color) !important;
+    &:hover, &:active, &:focus {
+      color: getLinkColor($bg-color) !important;
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  input {
+    display: none;
+  }
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $gray-300;
+  transition: .4s;
+  &::before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: $white;
+    transition: .4s;
+  }
+  &.round {
+    border-radius: 34px;
+    &:before {
+      border-radius: 50%;
+      border: $gray-400 solid 1px;
+    }
+  }
+}
+
+input:checked + .slider {
+  background-color: $primary;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px $primary;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+  border-color: darken($primary, 5%)
+}
+
+$app-bg: $dark;
+.bg-app {
+  background-color: $app-bg;
+}
