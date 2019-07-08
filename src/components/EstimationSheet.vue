@@ -1,44 +1,84 @@
 <template>
   <div>
-    <div class="container sprint">
-      <h2>Sprint
-        <q>{{sprint}}</q>
-        <a class="small" data-toggle="modal" data-target="#sprintModalCenter" href="#sprintModalCenter"><i
-          class="fas fa-edit"></i></a>
-      </h2>
-      <p>This sprint ends <b>{{ETA() | formatDate}}</b></p>
+    <div class="container-fluid sprint">
+      <div class="row">
+        <div class="col-md-5">
+          <h2>Sprint
+            <q>{{sprint}}</q>
+            <a class="small" data-toggle="modal" data-target="#sprintModalCenter" href="#sprintModalCenter"><i
+              class="fas fa-edit"></i></a>
+          </h2>
+          <p>This sprint ends <b>{{ETA() | formatDate}}</b></p>
+        </div>
+        <div class="col-md-2 text-center ml-auto">
+          <div class="d-flex justify-content-around ">
+            <div class="">
+              <dataCard icon="fa-star" name="Features" textClass="text-warning" :value="getTotalFeatures" :sm="true"
+                        class="border-0"></dataCard>
+            </div>
+            <div class="">
+              <dataCard icon="fa-bug" name="Bugs" textClass="text-danger" :value="getTotalBugs" :sm="true"
+                        class="border-0"></dataCard>
+            </div>
+            <div class="">
+              <dataCard icon="fa-cog" name="Chores" textClass="text-muted" :value="getTotalChores" :sm="true"
+                        class="border-0"></dataCard>
+            </div>
+          </div>
+        </div>
+      </div>
       <hr>
-      <!--    Stories table-->
-      <div class="table-responsive">
-        <table class="table table-striped table-hover table-bordered">
-          <thead class="thead-dark">
-          <tr>
-            <th>#</th>
-            <!--          <th>Module / Feature</th>-->
-            <th>Task Description</th>
-            <th>Type</th>
-            <th>Member</th>
-            <th>Day completed</th>
-            <th>Weightage</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(task, index) in getTasks" :key="index"
-              :class="onETA(task.accepted_at) ? 'bg-danger text-white': ''">
-            <td>{{++index}}</td>
-            <!--          <td></td>-->
-            <td class='story-description'>
-              <span class='ellipsis'>{{task.description}}</span>
-            </td>
-            <td>{{task.type}}</td>
-            <td>{{task.owner}}</td>
-            <td>{{task.accepted_at | formatDate}}</td>
-            <td>
-              {{getWeightageName(task.weightage)}}
-            </td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="row pb-3">
+        <div class="col-12" id="story-table">
+          <!--    Stories table-->
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+              <thead class="thead-dark">
+              <tr>
+                <th>#</th>
+                <!--          <th>Module / Feature</th>-->
+                <th>Task Description</th>
+                <th>Type</th>
+                <th>Member</th>
+                <th>Day completed</th>
+                <th>Weightage</th>
+              </tr>
+              </thead>
+              <transition-group name="list" tag="tbody" mode="out-in">
+                <tr v-for="(task, index) in getTasks" :key="index"
+                    :class="onETA(task.accepted_at) ? 'bg-danger text-white': ''">
+                  <td>{{++index}}</td>
+                  <!--          <td></td>-->
+                  <td class='story-description'>
+                    <span class='ellipsis'>{{task.description}}</span>
+                  </td>
+                  <td>{{task.type}}</td>
+                  <td>{{task.owner}}</td>
+                  <td>{{task.accepted_at | formatDate}}</td>
+                  <td>
+                    {{getWeightageName(task.weightage)}}
+                  </td>
+                </tr>
+              </transition-group>
+            </table>
+          </div>
+        </div>
+        <div class="col-12 text-center" id="story-kpi">
+          <div class="row">
+            <div class="py-1 col story-kpi-item">
+              <dataCard icon="fa-check" name="Completed on ETA" textClass="text-success"
+                        :value="getTotalCompletedOnETA"></dataCard>
+            </div>
+            <div class="py-1 col story-kpi-item">
+              <dataCard icon="fa-times" name="Completed out of ETA" textClass="text-danger"
+                        :value="getTotalCompleteOutOfETA" class="py-1"></dataCard>
+            </div>
+            <div class="py-1 col story-kpi-item">
+              <dataCard icon="fa-calendar-plus" name="Created within ETA" text-class="text-info"
+                        :value="getTotalCreatedWithinSprint" class="py-1"></dataCard>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-lg-6">
@@ -131,7 +171,7 @@
       </div>
     </div>
     <div class="sprint-result">
-      <div class="container">
+      <div class="container-fluid">
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead class="thead-dark">
@@ -155,18 +195,25 @@
     <div v-if="loading">
       <loader></loader>
     </div>
+    <div class="position-fixed time-indicator">
+      <TimeIndicator></TimeIndicator>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import dataCard from '@/components/DataCard.vue'
+import { mapGetters, mapState } from 'vuex'
 import SprintModal from '@/components/SprintModal.vue'
+import TimeIndicator from '@/components/TimeIndicator.vue'
 import DateHandler from '../util/dateHandler'
 
 export default {
   name: 'EstimationSheet',
   components: {
-    SprintModal
+    SprintModal,
+    dataCard,
+    TimeIndicator
   },
   data () {
     return {
@@ -192,23 +239,16 @@ export default {
       users: state => state.users,
       labels: state => state.labels
     }),
+    ...mapGetters([
+      'getTotalFeatures',
+      'getTotalBugs',
+      'getTotalChores',
+      'getTotalCompletedOnETA',
+      'getTotalCompleteOutOfETA',
+      'getTotalCreatedWithinSprint'
+    ]),
     getTasks () {
-      let vm = this
-      return vm.stories.filter(valid => {
-        return valid.hasOwnProperty('owned_by_id')
-      }).map(story => {
-        return {
-          'description': story.name,
-          'type': story.story_type,
-          'owner': vm.getStoryOwnerName(story.owned_by_id).name,
-          'weightage': (story.hasOwnProperty('estimate')) ? parseInt(story.estimate) : 0,
-          'accepted_at': (story.hasOwnProperty('accepted_at')) ? story.accepted_at : 'working'
-        }
-      }).sort((a, b) => {
-        if (a.accepted_at > b.accepted_at) return -1
-        if (a.accepted_at < b.accepted_at) return 1
-        return 0
-      })
+      return this.$store.getters.getFilteredStories
     },
     getTaskNoneCount () {
       return this.getTasks.filter(task => task.weightage === 0).length
@@ -254,11 +294,6 @@ export default {
     }
   },
   methods: {
-    getStoryOwnerName (ownerID) {
-      return this.users.filter(user =>
-        user.id === ownerID
-      )[0]
-    },
     getWeightageName (weightage) {
       let name = 'None'
       switch (weightage) {
@@ -293,4 +328,26 @@ export default {
     display: block;
   }
 
+  .list-item {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .list-enter-active, .list-leave-active {
+    transition: all ease-out 1s;
+  }
+
+  .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
+  {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  .time-indicator {
+    right: 5px;
+    bottom: 5px;
+    background-color: $dark;
+    padding: 10px;
+    box-shadow: $box-shadow;
+  }
 </style>

@@ -2,6 +2,7 @@ import moment from 'moment'
 
 export default class DateHandler {
   weeklyTag = ''
+  
   /**
    * Get the initial date of the sprint base on the weekly tag
    * @param {String} [date] - Weekly tag
@@ -13,6 +14,7 @@ export default class DateHandler {
     // console.log('weekString', week)
     return moment(week, 'MM-DD-YY')
   };
+  
   /**
    * Return if the date is in the Weekly sprint
    * @param [sprintWeek] - Weekly tag
@@ -26,6 +28,7 @@ export default class DateHandler {
     // console.log(diff)
     return (diff > 0)
   };
+  
   /**
    * Return the last day of the weekly sprint
    * @param {String} [sprintWeek] - Weekly tag
@@ -35,6 +38,7 @@ export default class DateHandler {
     let weeklySprint = sprintWeek || this.weeklyTag
     return this.getFirstDateOfSprint(weeklySprint).add('5', 'd')
   };
+  
   /**
    * Return if the date was within the sprint week
    * @param [sprintWeek] - Weekly tag
@@ -47,7 +51,17 @@ export default class DateHandler {
     let delivered = moment(date)
     let diffIn = delivered.diff(ldow, 'd', true)
     let diffOut = fdow.diff(delivered, 'd', true)
-    console.log(diffOut)
     return (diffIn > 0 || diffOut < 0)
+  };
+  /**
+   * Calculate the days of the sprint
+   * @param [sprintWeek] - Weekly tag
+   * @param {String} lastDate - day of the last story
+   * @return {number}
+   */
+  daysOfSprint (sprintWeek, lastDate) {
+    let fdow = this.getFirstDateOfSprint(sprintWeek)
+    let now = (lastDate === 'working') ? moment() : moment(lastDate)
+    return Math.trunc(now.diff(fdow, 'd', true))
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <div class="card">
-    <div class="card-body">
-      <p :class="[textClass, 'h1']"><i :class="['fas', icon]"></i></p>
-      <p>{{value}}</p>
-      <h3>{{name}}</h3>
+    <div :class="[{'p-0': sm},'card-body']">
+      <p :class="[sm ? 'm-0 h3' : 'h1', textClass]"><i :class="['fas', icon]"></i></p>
+      <p :class="{'m-0 small': sm}">{{value}}</p>
+      <p class="h3" v-if="!sm">{{name}}</p>
     </div>
   </div>
 </template>
@@ -27,6 +27,10 @@ export default {
     textClass: {
       type: String,
       required: true
+    },
+    sm: {
+      type: Boolean,
+      default: false
     }
   }
 }

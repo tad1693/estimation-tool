@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .loader {
+  .indicator {
     &-container {
       width: 120px;
       height: 120px;
