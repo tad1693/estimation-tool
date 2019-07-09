@@ -19,7 +19,7 @@ export default new Vuex.Store({
       simple: 2,
       medium: 3,
       complex: 5,
-      sprint: 'weekly 0513'
+      sprint: 'weekly 0708'
     },
     stories: [],
     labels: [],
@@ -65,6 +65,7 @@ export default new Vuex.Store({
           return valid.hasOwnProperty('owned_by_id')
         }).map(story => {
           return {
+            'id': story.id,
             'description': story.name,
             'type': story.story_type,
             'owner': getters.getStoryOwnerName(story.owned_by_id).name,
@@ -127,7 +128,19 @@ export default new Vuex.Store({
       if (getters.getFilteredStories.length) {
         let lastStoryDate = getters.getFilteredStories[0].accepted_at
         return dateHandler.daysOfSprint(state.client.sprint, lastStoryDate)
-      } return []
+      }
+      return []
+    },
+    getChartRowByDate: (state, getters) => dateName => {
+      let row = {}
+      state.users.forEach(user => {
+        let target = user.name
+        let count = getters.getFilteredStories.filter(story => {
+          return (story.accepted_at !== 'working' && dateHandler.getWeekDay(story.accepted_at) === dateName && story.owner === target)
+        }).length
+        row[target] = count
+      })
+      return row
     }
   }
 })

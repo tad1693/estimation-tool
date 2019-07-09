@@ -45,7 +45,7 @@
               </tr>
               </thead>
               <transition-group name="list" tag="tbody" mode="out-in">
-                <tr v-for="(task, index) in getTasks" :key="index"
+                <tr v-for="(task, index) in getTasks" :key="task.id"
                     :class="onETA(task.accepted_at) ? 'bg-danger text-white': ''">
                   <td>{{++index}}</td>
                   <!--          <td></td>-->

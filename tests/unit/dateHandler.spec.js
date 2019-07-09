@@ -21,6 +21,9 @@ describe('Date Handler', () => {
   test('should return 3 days of Sprint', () => {
     expect(dateHandler.daysOfSprint(sprintWeek, dateInETA)).toBe(3)
   })
+  test('should return day of the week', () => {
+    expect(dateHandler.getWeekDay(dateWeekTag)).toBe('Monday')
+  })
   describe('is Out of ETA', () => {
     test('Should be out of ETA', () => {
       expect(dateHandler.isOutOfETA(sprintWeek, dateOutOfETA)).toBeTruthy()

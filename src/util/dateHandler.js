@@ -64,5 +64,14 @@ export default class DateHandler {
     let fdow = this.getFirstDateOfSprint(sprintWeek)
     let now = (lastDate === 'working') ? moment() : moment(lastDate)
     return Math.trunc(now.diff(fdow, 'd', true))
-  }
+  };
+
+  /**
+   * Return the day of the week
+   * @param {String} date - Date to be formatted
+   * @return {string}
+   */
+  getWeekDay (date) {
+    return moment(date).format('dddd')
+  };
 }
