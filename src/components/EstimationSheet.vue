@@ -328,19 +328,21 @@ export default {
     display: block;
   }
 
-  .list-item {
-    display: inline-block;
-    margin-right: 10px;
-  }
+  .list {
+    &-item {
+      display: inline-block;
+      margin-right: 10px;
+    }
 
-  .list-enter-active, .list-leave-active {
-    transition: all ease-out 1s;
-  }
+    &-enter-active, &-leave-active {
+      transition: all ease-out 1s;
+    }
 
-  .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
-  {
-    opacity: 0;
-    transform: translateX(30px);
+    &-enter, &-leave-to /* .list-leave-active below version 2.1.8 */
+    {
+      opacity: 0;
+      transform: translateX(30px);
+    }
   }
 
   .time-indicator {
