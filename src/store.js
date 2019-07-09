@@ -100,8 +100,14 @@ export default new Vuex.Store({
       })
       return count
     },
-    getTotalCompletedOnETA: (state, getters) => {
-      return state.stories.length - getters.getTotalCompleteOutOfETA
+    getTotalCompletedOnETA: (state) => {
+      let count = 0
+      state.stories.forEach(story => {
+        if (story.hasOwnProperty('accepted_at') && dateHandler.withinSprint(state.client.sprint, story.accepted_at)) {
+          count++
+        }
+      })
+      return count
     },
     getTotalCreatedWithinSprint: state => {
       let count = 0

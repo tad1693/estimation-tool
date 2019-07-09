@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :class="[getIndicatorColor, 'indicator mx-auto']">
-      {{getTotalSprintTime}} days
+      {{getTotalSprintTime}} day(s)
     </div>
   </div>
 </template>
