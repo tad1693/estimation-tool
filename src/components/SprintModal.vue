@@ -58,7 +58,7 @@ export default {
       current: state => state.client.sprint
     }),
     sprints () {
-      return this.labels.filter(label => label.name.includes('weekly'))
+      return this.$store.getters.getWeeklyTags
     }
   }
 }

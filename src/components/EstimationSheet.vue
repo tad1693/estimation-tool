@@ -222,14 +222,18 @@ export default {
   },
   watch: {
     'sprint' (value) {
-      this.$store.dispatch('retrieveStories', value).then(() => {
-        this.loading = false
+      let vm = this
+      vm.loading = true
+      vm.$store.dispatch('retrieveStories', value).then(() => {
+        vm.loading = false
       })
     }
   },
   created () {
-    this.$store.dispatch('retrieveStories', this.sprint).then(() => {
-      this.loading = false
+    let vm = this
+    vm.loading = true
+    vm.$store.dispatch('retrieveTags').then(() => {
+      vm.loading = false
     })
   },
   computed: {
@@ -313,7 +317,7 @@ export default {
       return new DateHandler().isOutOfETA(this.sprint, acceptedTime)
     },
     ETA () {
-      return new DateHandler().getLastDayOfSprint(this.sprint)
+      if (this.sprint) return new DateHandler().getLastDayOfSprint(this.sprint)
     }
   }
 }

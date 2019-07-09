@@ -19,7 +19,7 @@ export default new Vuex.Store({
       simple: 2,
       medium: 3,
       complex: 5,
-      sprint: 'weekly 0708'
+      sprint: ''
     },
     stories: [],
     labels: [],
@@ -46,19 +46,44 @@ export default new Vuex.Store({
     retrieveStories ({ commit, getters }, sprint) {
       axios.defaults.baseURL = HOST + getters.getClient.projectID
       axios.defaults.headers.common['X-TrackerToken'] = getters.getClient.pivotalToken
-      let vm = this
-      vm.loading = true
-      axios.all([pivotalHandler.getStoriesBySprint(sprint), pivotalHandler.getLabels(), pivotalHandler.getUsers()])
-        .then(axios.spread((stories, labels, users) => {
+      axios.all([pivotalHandler.getStoriesBySprint(sprint), pivotalHandler.getUsers()])
+        .then(axios.spread((stories, users) => {
           commit('SET_STORIES', stories.data)
-          commit('SET_LABELS', labels.data)
           commit('SET_USERS', users.data.map(user => {
             return user.person
           }))
         }))
+    },
+    retrieveTags ({ state, commit, getters, dispatch }) {
+      axios.defaults.baseURL = HOST + getters.getClient.projectID
+      axios.defaults.headers.common['X-TrackerToken'] = getters.getClient.pivotalToken
+      pivotalHandler.getLabels().then(labels => {
+        commit('SET_LABELS', labels.data)
+        commit('SET_SPRINT', getters.getCurrentWeeklyTag)
+        let sprint = state.client.sprint
+        dispatch('retrieveStories', sprint)
+      })
     }
   },
   getters: {
+    getWeeklyTags: state => {
+      return state.labels.filter(label => label.name.includes('weekly'))
+    },
+    getCurrentWeeklyTag: (state, getters) => {
+      let tags = getters.getWeeklyTags
+      let target = ''
+      if (tags.length) {
+        target = tags[tags.length - 1].name
+        let currentDate = new Date().toISOString()
+        for (let tagIndex in tags) {
+          if (dateHandler.withinSprint(tags[tagIndex].name, currentDate)) {
+            target = tags[tagIndex].name
+            break
+          }
+        }
+      }
+      return target
+    },
     getFilteredStories: (state, getters) => {
       if (state.users.length && state.stories.length) {
         return state.stories.filter(valid => {
