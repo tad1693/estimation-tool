@@ -42,6 +42,11 @@ export default {
       required: true
     }
   },
+  watch: {
+    'current' (value) {
+      this.target = value
+    }
+  },
   data () {
     return {
       target: this.$store.state.client.sprint
