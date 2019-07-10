@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h6 class="heading">Stories distribution</h6>
     <canvas id="myChart" width="200" height="200"></canvas>
   </div>
 </template>
@@ -9,19 +10,23 @@ import Chart from 'chart.js'
 import { mapGetters } from 'vuex'
 
 const BGCORLORS = [
-  'rgba(255, 99, 132, 0.2)',
-  'rgba(54, 162, 235, 0.2)',
-  'rgba(255, 206, 86, 0.2)',
-  'rgba(75, 192, 192, 0.2)',
-  'rgba(153, 102, 255, 0.2)'
+  'rgba(66, 133, 244, 0.5)',
+  'rgba(219, 68, 55, 0.5)',
+  'rgba(244, 180, 0, 0.5)',
+  'rgba(15, 157, 88, 0.5)',
+  'rgba(171, 71, 188, 0.5)',
+  'rgba(0, 172, 193, 0.5)',
+  'rgba(255, 112, 67, 0.5)'
 ]
 
 const BORDERCOLORS = [
-  'rgba(255, 99, 132, 1)',
-  'rgba(54, 162, 235, 1)',
-  'rgba(255, 206, 86, 1)',
-  'rgba(75, 192, 192, 1)',
-  'rgba(153, 102, 255, 1)'
+  'rgb(66, 133, 244)',
+  'rgb(219, 68, 55)',
+  'rgb(244, 180, 0)',
+  'rgb(15, 157, 88)',
+  'rgb(171, 71, 188)',
+  'rgb(0, 172, 193)',
+  'rgb(255, 112, 67)'
 ]
 
 const LABELS = ['Bug', 'Chore', 'Simple', 'Medium', 'Complex']
@@ -47,7 +52,7 @@ export default {
           data: result,
           backgroundColor: [BGCORLORS[index]],
           borderColor: [BORDERCOLORS[index]],
-          borderWidth: 1
+          borderWidth: 2
         })
       })
       return dataSets
@@ -80,6 +85,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  .heading {
+    color: rgb(117, 117, 117);
+    font-weight: $font-weight-normal;
+  }
 </style>

@@ -54,9 +54,11 @@ export default {
   mounted () {
     let vm = this
     vm.loading = true
-    vm.$store.dispatch('retrieveTags').then(() => {
-      vm.loading = false
-    })
+    if (!this.sprint) {
+      vm.$store.dispatch('retrieveTags').then(() => {
+        vm.loading = false
+      })
+    }
   },
   computed: {
     ...mapState({
