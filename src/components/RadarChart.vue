@@ -6,6 +6,7 @@
 
 <script>
 import Chart from 'chart.js'
+import { mapGetters } from 'vuex'
 
 const BGCORLORS = [
   'rgba(255, 99, 132, 0.2)',
@@ -26,26 +27,14 @@ const BORDERCOLORS = [
 const LABELS = ['Bug', 'Chore', 'Simple', 'Medium', 'Complex']
 export default {
   name: 'RadarChart',
+  watch: {
+    'getFilteredStories' () {
+      this.drawChart()
+    }
+  },
   mounted () {
     let vm = this
-    var ctx = document.getElementById('myChart').getContext('2d')
-    var myChart = new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: LABELS,
-        datasets: vm.getData()
-      },
-      options: {
-        scale: {
-          ticks: {
-            beginAtZero: true,
-            min: 0,
-            max: 6,
-            stepSize: 1
-          }
-        }
-      }
-    })
+    vm.drawChart()
   },
   methods: {
     getData () {
@@ -62,7 +51,31 @@ export default {
         })
       })
       return dataSets
+    },
+    drawChart () {
+      var ctx = document.getElementById('myChart').getContext('2d')
+      let vm = this
+      var myChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: LABELS,
+          datasets: vm.getData()
+        },
+        options: {
+          scale: {
+            ticks: {
+              beginAtZero: true,
+              min: 0,
+              max: 6,
+              stepSize: 1
+            }
+          }
+        }
+      })
     }
+  },
+  computed: {
+    ...mapGetters(['getFilteredStories'])
   }
 }
 </script>
