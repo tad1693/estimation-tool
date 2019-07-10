@@ -22,7 +22,7 @@ export default {
           title: `Weekly Sprint '${vm.$store.state.client.sprint}'`,
           subtitle: 'Stories\' Completion by days'
         },
-        width: 900,
+        width: 700,
         height: 500,
         axes: {
           x: {
@@ -76,4 +76,7 @@ export default {
 
 <style>
 
+  #chart > div {
+    margin: 0 auto;
+  }
 </style>

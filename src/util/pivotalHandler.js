@@ -5,7 +5,6 @@ const LABELS = '/labels'
 const USERS = '/memberships'
 export default {
   getStoriesBySprint (sprint) {
-    console.log('sprint', sprint)
     let params = {
       filter: `label:"${sprint}"`
     }

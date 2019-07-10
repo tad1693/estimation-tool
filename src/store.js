@@ -166,6 +166,17 @@ export default new Vuex.Store({
         row[target] = count
       })
       return row
+    },
+    getRadarByUser: (state, getters) => (user) => {
+      let row = []
+      const TYPES = ['bug', 'chore', 1, 2, 3]
+      TYPES.forEach(type => {
+        let count = getters.getFilteredStories.filter(story => {
+          return ((story.type === type || story.weightage === type) && story.owner === user)
+        }).length
+        row.push(count)
+      })
+      return row
     }
   }
 })
