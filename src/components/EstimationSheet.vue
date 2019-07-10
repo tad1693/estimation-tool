@@ -1,33 +1,7 @@
 <template>
   <div>
     <div class="container-fluid sprint">
-      <div class="row">
-        <div class="col-md-5">
-          <h2>Sprint
-            <q>{{sprint}}</q>
-            <a class="small" data-toggle="modal" data-target="#sprintModalCenter" href="#sprintModalCenter"><i
-              class="fas fa-edit"></i></a>
-          </h2>
-          <p>This sprint ends <b>{{ETA() | formatDate}}</b></p>
-        </div>
-        <div class="col-md-2 text-center ml-auto">
-          <div class="d-flex justify-content-around ">
-            <div class="">
-              <dataCard icon="fa-star" name="Features" textClass="text-warning" :value="getTotalFeatures" :sm="true"
-                        class="border-0"></dataCard>
-            </div>
-            <div class="">
-              <dataCard icon="fa-bug" name="Bugs" textClass="text-danger" :value="getTotalBugs" :sm="true"
-                        class="border-0"></dataCard>
-            </div>
-            <div class="">
-              <dataCard icon="fa-cog" name="Chores" textClass="text-muted" :value="getTotalChores" :sm="true"
-                        class="border-0"></dataCard>
-            </div>
-          </div>
-        </div>
-      </div>
-      <hr>
+      <Header></Header>
       <div class="row pb-3">
         <div class="col-12" id="story-table">
           <!--    Stories table-->
@@ -191,7 +165,6 @@
         </div>
       </div>
     </div>
-    <SprintModal :labels="labels"/>
     <div v-if="loading">
       <loader></loader>
     </div>
@@ -204,37 +177,21 @@
 <script>
 import dataCard from '@/components/DataCard.vue'
 import { mapGetters, mapState } from 'vuex'
-import SprintModal from '@/components/SprintModal.vue'
 import TimeIndicator from '@/components/TimeIndicator.vue'
+import Header from '@/components/Header.vue'
 import DateHandler from '../util/dateHandler'
 
 export default {
   name: 'EstimationSheet',
   components: {
-    SprintModal,
     dataCard,
-    TimeIndicator
+    TimeIndicator,
+    Header
   },
   data () {
     return {
       estimatedDefined: 5
     }
-  },
-  watch: {
-    'sprint' (value) {
-      let vm = this
-      vm.loading = true
-      vm.$store.dispatch('retrieveStories', value).then(() => {
-        vm.loading = false
-      })
-    }
-  },
-  created () {
-    let vm = this
-    vm.loading = true
-    vm.$store.dispatch('retrieveTags').then(() => {
-      vm.loading = false
-    })
   },
   computed: {
     ...mapState({
@@ -244,9 +201,6 @@ export default {
       labels: state => state.labels
     }),
     ...mapGetters([
-      'getTotalFeatures',
-      'getTotalBugs',
-      'getTotalChores',
       'getTotalCompletedOnETA',
       'getTotalCompleteOutOfETA',
       'getTotalCreatedWithinSprint'
@@ -315,9 +269,6 @@ export default {
     },
     onETA (acceptedTime) {
       return new DateHandler().isOutOfETA(this.sprint, acceptedTime)
-    },
-    ETA () {
-      if (this.sprint) return new DateHandler().getLastDayOfSprint(this.sprint)
     }
   }
 }

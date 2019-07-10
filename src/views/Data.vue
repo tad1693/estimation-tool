@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Header></Header>
     <div class="mb-5">
       <LineChart></LineChart>
     </div>
@@ -13,11 +14,13 @@
 <script>
 import LineChart from '@/components/LineChart.vue'
 import RadarChart from '@/components/RadarChart.vue'
+import Header from '@/components/Header.vue'
 export default {
   name: 'Data',
   components: {
     LineChart,
-    RadarChart
+    RadarChart,
+    Header
   }
 }
 </script>
