@@ -4,14 +4,14 @@
     <form @submit.prevent="login" class="w-25 mx-auto">
       <div class="form-group">
         <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" v-model="email">
+        <input type="email" class="form-control" id="email" v-model="email" required>
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" class="form-control" id="password" v-model="password">
+        <input type="password" class="form-control" id="password" v-model="password" required>
       </div>
       <div class="form-group text-right">
-        <input type="submit" class="btn btn-primary" value="Sign in">
+        <button type="submit" class="btn btn-primary">Sign in</button>
       </div>
     </form>
   </div>
