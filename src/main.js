@@ -6,6 +6,7 @@ import Loader from './components/Loader'
 import moment from 'moment'
 import './registerServiceWorker'
 import 'bootstrap'
+import firebaseHandler from './util/firebaseHandler'
 
 Vue.component('loader', Loader)
 Vue.filter('twoDecimals',
@@ -25,6 +26,23 @@ Vue.mixin({
   }
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!firebaseHandler.getUser()) {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      console.log('authenticated')
+      next()
+    }
+  } else {
+    next()
+  }
+})
 Vue.config.productionTip = false
 
 new Vue({
