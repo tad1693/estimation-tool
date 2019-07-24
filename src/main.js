@@ -26,9 +26,10 @@ Vue.mixin({
   }
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!firebaseHandler.getUser()) {
+    let user = firebaseHandler.getCurrentUser() || await firebaseHandler.getUser()
+    if (!user) {
       next({
         path: '/login',
         query: {

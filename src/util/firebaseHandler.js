@@ -18,9 +18,11 @@ export default {
   getUser () {
     return new Promise(resolve => {
       firebase.auth().onAuthStateChanged(function (user) {
-        resolve(!!user)
+        resolve(user)
       })
     })
-    // let user = firebase.auth().currentUser
+  },
+  getCurrentUser () {
+    return firebase.auth().currentUser
   }
 }
