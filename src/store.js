@@ -23,7 +23,8 @@ export default new Vuex.Store({
     },
     stories: [],
     labels: [],
-    users: []
+    users: [],
+    loading: false
   },
   mutations: {
     SET_CLIENT (state, client) {
@@ -40,10 +41,14 @@ export default new Vuex.Store({
     },
     SET_LABELS (state, labels) {
       state.labels = labels
+    },
+    SET_LOADING (state, loading) {
+      state.loading = loading
     }
   },
   actions: {
     retrieveStories ({ commit, getters }, sprint) {
+      commit('SET_LOADING', true)
       axios.defaults.baseURL = HOST + getters.getClient.projectID
       axios.defaults.headers.common['X-TrackerToken'] = getters.getClient.pivotalToken
       axios.all([pivotalHandler.getStoriesBySprint(sprint), pivotalHandler.getUsers()])
@@ -52,9 +57,11 @@ export default new Vuex.Store({
           commit('SET_USERS', users.data.map(user => {
             return user.person
           }))
+          commit('SET_LOADING', false)
         }))
     },
     retrieveTags ({ state, commit, getters, dispatch }) {
+      commit('SET_LOADING', true)
       axios.defaults.baseURL = HOST + getters.getClient.projectID
       axios.defaults.headers.common['X-TrackerToken'] = getters.getClient.pivotalToken
       pivotalHandler.getLabels().then(labels => {

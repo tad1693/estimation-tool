@@ -45,19 +45,13 @@ export default {
   watch: {
     'sprint' (value) {
       let vm = this
-      vm.loading = true
-      vm.$store.dispatch('retrieveStories', value).then(() => {
-        vm.loading = false
-      })
+      vm.$store.dispatch('retrieveStories', value)
     }
   },
   mounted () {
     let vm = this
-    vm.loading = true
     if (!this.sprint) {
-      vm.$store.dispatch('retrieveTags').then(() => {
-        vm.loading = false
-      })
+      vm.$store.dispatch('retrieveTags')
     }
   },
   computed: {

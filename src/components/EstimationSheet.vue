@@ -165,7 +165,7 @@
         </div>
       </div>
     </div>
-    <div v-if="loading">
+    <div v-if="!loading">
       <loader></loader>
     </div>
     <div class="position-fixed time-indicator">
@@ -198,7 +198,8 @@ export default {
       sprint: state => state.client.sprint,
       stories: state => state.stories,
       users: state => state.users,
-      labels: state => state.labels
+      labels: state => state.labels,
+      loading: state => state.loading
     }),
     ...mapGetters([
       'getTotalCompletedOnETA',

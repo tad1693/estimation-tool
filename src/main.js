@@ -20,7 +20,6 @@ Vue.filter('formatDate', (dateString) => {
 Vue.mixin({
   data () {
     return {
-      loading: false, // Loading flag
       error: '' // Error message
     }
   }
