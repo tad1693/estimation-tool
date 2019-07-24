@@ -32,7 +32,6 @@ export default {
     login () {
       let path = this.$route.query.redirect
       let response = firebaseHandler.signInFirebase(this.email, this.password)
-      console.log(response)
       if (response) this.$router.push(path)
     }
   }
