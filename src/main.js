@@ -36,7 +36,6 @@ router.beforeEach(async (to, from, next) => {
         }
       })
     } else {
-      console.log('authenticated')
       next()
     }
   } else {
