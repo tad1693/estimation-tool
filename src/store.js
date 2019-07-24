@@ -67,7 +67,7 @@ export default new Vuex.Store({
   },
   getters: {
     getWeeklyTags: state => {
-      return state.labels.filter(label => label.name.includes('weekly'))
+      return state.labels.filter(label => (label.name.includes('weekly') || label.name.includes('ready by')))
     },
     getCurrentWeeklyTag: (state, getters) => {
       let tags = getters.getWeeklyTags
