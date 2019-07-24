@@ -165,7 +165,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!loading">
+    <div v-if="loading">
       <loader></loader>
     </div>
     <div class="position-fixed time-indicator">

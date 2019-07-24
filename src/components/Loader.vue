@@ -22,14 +22,15 @@ export default {
 </script>
 
 <style lang="scss">
-  .indicator {
+  .loader {
     &-container {
       width: 120px;
       height: 120px;
       position: absolute;
     }
+
     &-box {
-      background: rgba($app-bg, 0.8);
+      background: rgba($dark, 0.8);
       top: 0;
       left: 0;
       right: 0;

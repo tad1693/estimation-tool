@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-7">
         <h2>Sprint
           <q>{{sprint}}</q>
           <a class="small" data-toggle="modal" data-target="#sprintModalCenter" href="#sprintModalCenter"><i
