@@ -51,25 +51,25 @@ export default new Vuex.Store({
       commit('SET_LOADING', true)
       axios.defaults.baseURL = HOST + getters.getClient.projectID
       axios.defaults.headers.common['X-TrackerToken'] = getters.getClient.pivotalToken
-      axios.all([pivotalHandler.getStoriesBySprint(sprint), pivotalHandler.getUsers()])
-        .then(axios.spread((stories, users) => {
+      pivotalHandler.getStoriesBySprint(sprint)
+        .then(stories => {
           commit('SET_STORIES', stories.data)
-          commit('SET_USERS', users.data.map(user => {
-            return user.person
-          }))
           commit('SET_LOADING', false)
-        }))
+        })
     },
-    retrieveTags ({ state, commit, getters, dispatch }) {
+    retrieveTags ({ commit, getters }) {
       commit('SET_LOADING', true)
       axios.defaults.baseURL = HOST + getters.getClient.projectID
       axios.defaults.headers.common['X-TrackerToken'] = getters.getClient.pivotalToken
-      pivotalHandler.getLabels().then(labels => {
-        commit('SET_LABELS', labels.data)
-        commit('SET_SPRINT', getters.getCurrentWeeklyTag)
-        let sprint = state.client.sprint
-        dispatch('retrieveStories', sprint)
-      })
+      axios.all([pivotalHandler.getLabels(), pivotalHandler.getUsers()])
+        .then(axios.spread((labels, users) => {
+          commit('SET_LABELS', labels.data)
+          commit('SET_USERS', users.data.map(user => {
+            return user.person
+          }))
+          commit('SET_SPRINT', getters.getCurrentWeeklyTag)
+          commit('SET_LOADING', true)
+        }))
     }
   },
   getters: {
