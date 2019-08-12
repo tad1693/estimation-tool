@@ -1,9 +1,9 @@
 import DateHandler from '@/util/dateHandler'
 import moment from 'moment'
 
-const sprintWeek = 'Ready by 0726'
+const sprintWeek = 'Weekly 0812'
 const dateHandler = new DateHandler()
-dateHandler.weeklyTag = 'Ready by 0726'
+dateHandler.weeklyTag = sprintWeek
 const dateOutOfETA = moment(dateHandler.getFirstDateOfSprint()).add('6', 'd').toISOString()
 const dateInETA = moment(dateHandler.getFirstDateOfSprint()).add('3', 'd').toISOString()
 const dateBeforeETA = '2019-05-10T14:41:04Z'
