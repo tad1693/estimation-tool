@@ -1,5 +1,10 @@
 # estimation-tool
 
+This tools calculates the time need to complete
+a Sprint within Pivotal Tracker, also shares
+graphs to get more info about the stories 
+assigned
+
 ## Project setup
 ```
 npm install

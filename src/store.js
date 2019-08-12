@@ -13,9 +13,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     client: {
-      name: 'EdThrive',
-      projectID: '2229046',
-      pivotalToken: '1f1755771382bd90a7730132feece66c',
+      name: process.env.VUE_APP_PIVOTAL_PROJECT,
+      projectID: process.env.VUE_APP_PIVOTAL_PROJECT_ID,
+      pivotalToken: process.env.VUE_APP_PIVOTAL_PROJECT_TOKEN,
       simple: 2,
       medium: 3,
       complex: 5,
