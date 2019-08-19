@@ -1,6 +1,6 @@
 # estimation-tool
 
-This tools calculates the time need to complete
+This tools calculates the time needed to complete
 a Sprint within Pivotal Tracker, also shares
 graphs to get more info about the stories 
 assigned
