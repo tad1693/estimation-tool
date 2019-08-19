@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tad1693/estimation-tool.svg?branch=master)](https://travis-ci.org/tad1693/estimation-tool)
+
 # estimation-tool
 
 This tools calculates the time needed to complete
