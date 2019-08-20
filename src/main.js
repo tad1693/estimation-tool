@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import storeConfig from './store'
 import Loader from './components/Loader'
 import moment from 'moment'
 import './registerServiceWorker'
 import 'bootstrap'
 import firebaseHandler from './util/firebaseHandler'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+let store = new Vuex.Store(storeConfig)
 
 Vue.component('loader', Loader)
 Vue.filter('twoDecimals',
