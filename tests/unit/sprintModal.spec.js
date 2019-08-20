@@ -25,14 +25,14 @@ describe('SprintModal.vue', () => {
       store,
       localVue
     })
-    const target = 'Weekly 0819'
+    const target = 'weekly 0708'
     expect(wrapper.vm.target).toBe('')
     expect(wrapper.vm.current).toBe('')
     expect(wrapper.vm.sprints).toBe(tags)
-    expect(wrapper.findAll('#sprint > option').length).toBe(3)
-    wrapper.findAll('#sprint > option').at(1).element.selected = true
+    expect(wrapper.findAll('#sprint > option').length).toBe(9)
+    wrapper.findAll('#sprint > option').at(5).element.selected = true
     wrapper.find('#sprint').trigger('change')
-    expect(wrapper.findAll('#sprint > option').at(1).element.selected).toBeTruthy()
+    expect(wrapper.findAll('#sprint > option').at(5).element.selected).toBeTruthy()
     expect(wrapper.vm.target).toBe(target)
     wrapper.find('#sprintForm').trigger('submit')
     expect(store.state.client.sprint).toBe(target)
