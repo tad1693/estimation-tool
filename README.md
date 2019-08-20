@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/tad1693/estimation-tool.svg?branch=master)](https://travis-ci.org/tad1693/estimation-tool)
-[![Coverage Status](https://coveralls.io/repos/github/tad1693/estimation-tool/badge.svg?branch=development)](https://coveralls.io/github/tad1693/estimation-tool?branch=development)
+[![Coverage Status](https://coveralls.io/repos/github/tad1693/estimation-tool/badge.svg?branch=master)](https://coveralls.io/github/tad1693/estimation-tool?branch=master)
+[![Dependecies Status](https://david-dm.org/tad1693/estimation-tool.svg)](https://david-dm.org/tad1693/estimation-tool)
 
 # estimation-tool
 
