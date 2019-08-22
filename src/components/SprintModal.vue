@@ -36,12 +36,6 @@ import $ from 'jquery'
 
 export default {
   name: 'SprintModal',
-  props: {
-    'labels': {
-      type: Array,
-      required: true
-    }
-  },
   watch: {
     'current' (value) {
       this.target = value
