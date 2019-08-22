@@ -36,6 +36,6 @@ describe('Header.vue', () => {
       store
     })
     store.commit('SET_SPRINT', WeeklyTag)
-    expect(wrapper.vm.ETA().toISOString()).toBe('2019-07-13T06:00:00.000Z')
+    expect(wrapper.vm.ETA().toISOString()).toBe('2019-07-13T00:00:00.000Z')
   })
 })
