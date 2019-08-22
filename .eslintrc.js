@@ -12,7 +12,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   },
   globals: {
-    "google": "writable"
+    'google': 'writable'
   },
   parserOptions: {
     parser: 'babel-eslint'

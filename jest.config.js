@@ -1,4 +1,5 @@
 module.exports = {
+  setupFiles: ['./setup-jest.js'],
   moduleFileExtensions: [
     'js',
     'jsx',

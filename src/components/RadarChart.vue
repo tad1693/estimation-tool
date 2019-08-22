@@ -60,6 +60,7 @@ export default {
     drawChart () {
       var ctx = document.getElementById('myChart').getContext('2d')
       let vm = this
+      // eslint-disable-next-line no-unused-vars
       var myChart = new Chart(ctx, {
         type: 'radar',
         data: {

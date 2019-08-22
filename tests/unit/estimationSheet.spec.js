@@ -1,5 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils'
 import EstimationSheet from '@/components/EstimationSheet.vue'
+import DataCard from '@/components/DataCard'
+import TimeIndicator from '@/components/TimeIndicator'
+import Header from '@/components/Header'
 import Vuex from 'vuex'
 import moment from 'moment'
 import tags from '@/fixtures/weeklytags'
@@ -31,6 +34,17 @@ describe('EstimationSheet.vue', () => {
       state,
       mutations
     })
+  })
+  it('should render component properly', function () {
+    const wrapper = shallowMount(EstimationSheet, {
+      store,
+      localVue
+    })
+    expect(wrapper.isVueInstance()).toBeTruthy()
+    expect(wrapper.find(DataCard).isVisible()).toBeTruthy()
+    expect(wrapper.find(TimeIndicator).isVisible()).toBeTruthy()
+    expect(wrapper.find(Header).isVisible()).toBeTruthy()
+    expect(wrapper.vm.estimatedDefined).toBe(5)
   })
   it('get Simple for wiehgtage 1', () => {
     const wrapper = shallowMount(EstimationSheet, {
@@ -76,8 +90,7 @@ describe('EstimationSheet.vue', () => {
     expect(wrapper.vm.onETA(acceptedTime)).toBeTruthy()
   })
   it('should return correct values for computed properties', function () {
-    const sprint = 'Weekly 0708'
-    store.state.client.sprint = sprint
+    store.state.client.sprint = 'Weekly 0708'
     const wrapper = shallowMount(EstimationSheet, {
       store,
       localVue
@@ -96,17 +109,8 @@ describe('EstimationSheet.vue', () => {
     expect(wrapper.vm.getWorstCaseEstimate).toBe(72)
     expect(wrapper.vm.getEstimation).toBe(59)
     expect(wrapper.vm.getSD).toBe(5)
+    expect(wrapper.vm.stories.length).toBe(6)
+    expect(wrapper.vm.users.length).toBe(3)
+    expect(wrapper.vm.labels.length).toBe(9)
   })
-  // it('should return 6 weekly tags', function () {
-  //   expect(store.getters.getWeeklyTags.length).toBe(6)
-  // })
-  // it('should return "weekly 0729" as last weekly tag', function () {
-  //   expect(store.getters.getCurrentWeeklyTag).toBe('weekly 0729')
-  // })
-  // it('should return 6 filtered stories', function () {
-  //   expect(store.getters.getFilteredStories.length).toBe(6)
-  // })
-  // it('should return Juan as user', function () {
-  //   expect(store.getters.getStoryOwnerName(3126544).name).toContain('Juan')
-  // })
 })
