@@ -26,7 +26,10 @@ jobs:
       run: |
         npm install
         npm run test:unit
-        cat ./coverage/lcov.info | coveralls
       env:
         CI: true
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
     
