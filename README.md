@@ -2,6 +2,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/tad1693/estimation-tool/badge.svg?branch=master)](https://coveralls.io/github/tad1693/estimation-tool?branch=master)
 [![Dependecies Status](https://david-dm.org/tad1693/estimation-tool.svg)](https://david-dm.org/tad1693/estimation-tool)
 
+[![Actions Status](https://github.com/tad1693/estimation-tool/workflows/Node%20CI/badge.svg)](https://github.com/tad1693/estimation-tool/actions)
+
+
 # estimation-tool
 
 This tools calculates the time needed to complete
