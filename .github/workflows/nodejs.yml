@@ -28,10 +28,16 @@ jobs:
         npm run test:unit
       env:
         CI: true
-    - name: Coveralls
+    - name: Coveralls Parallel
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.github_token }}
-        path-to-lcov: ./coverage/lcov.info | coveralls
+        parallel: true
+        path-to-lcov: ./coverage/lcov.info # optional (default value)
+
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.github_token }}
         parallel-finished: true
     
