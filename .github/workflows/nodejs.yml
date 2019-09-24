@@ -33,4 +33,5 @@ jobs:
       with:
         github-token: ${{ secrets.github_token }}
         path-to-lcov: ./coverage/lcov.info | coveralls
+        parallel-finished: true
     
