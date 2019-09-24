@@ -1,12 +1,7 @@
 name: Node CI
 
-on:
-  pull_request:
-    branches:
-    - master
-    - development
+on: ["push","pull_request"]
       
-
 jobs:
   test:
     name: test
