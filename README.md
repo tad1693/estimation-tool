@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/tad1693/estimation-tool.svg)](https://travis-ci.org/tad1693/estimation-tool)
 [![Coverage Status](https://coveralls.io/repos/github/tad1693/estimation-tool/badge.svg)](https://coveralls.io/github/tad1693/estimation-tool)
 [![Dependecies Status](https://david-dm.org/tad1693/estimation-tool.svg)](https://david-dm.org/tad1693/estimation-tool)
-[![Actions Status](https://github.com/tad1693/estimation-tool/workflows/Node%20CI/badge.svg)](https://github.com/tad1693/estimation-tool/actions)
+[![Actions Status](https://github.com/tad1693/estimation-tool/workflows/Node%20CI/badge.svg)](https://github.com/tad1693/estimation-tool/actions?workflow=Node+CI)
 
 # estimation-tool
 
