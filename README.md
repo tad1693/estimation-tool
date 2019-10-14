@@ -2,6 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/tad1693/estimation-tool/badge.svg)](https://coveralls.io/github/tad1693/estimation-tool)
 [![Dependecies Status](https://david-dm.org/tad1693/estimation-tool.svg)](https://david-dm.org/tad1693/estimation-tool)
 [![Actions Status](https://github.com/tad1693/estimation-tool/workflows/Node%20CI/badge.svg)](https://github.com/tad1693/estimation-tool/actions?workflow=Node+CI)
+[![Deployment Status](https://github.com/tad1693/estimation-tool/workflows/Build%20and%20Deploy/badge.svg)](https://github.com/tad1693/estimation-tool/actions?workflow=Build+and+Deploy)
 
 # estimation-tool
 
