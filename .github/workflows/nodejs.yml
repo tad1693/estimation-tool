@@ -1,7 +1,7 @@
 name: Node CI
 
 on: ["push","pull_request"]
-      
+
 jobs:
   test:
     name: test
@@ -35,4 +35,23 @@ jobs:
       with:
         github-token: ${{ secrets.github_token }}
         parallel-finished: true
-    
+  build:
+    name: build
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install dependecies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy to Frebase
+        uses: w9jds/firebase-action@master
+          with:
+            args: deploy --only hosting
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+
+
