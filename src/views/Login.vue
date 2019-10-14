@@ -10,6 +10,9 @@
         <label for="password">Password:</label>
         <input type="password" class="form-control" id="password" v-model="password" required>
       </div>
+      <div v-if="error">
+        <p class="text-danger">{{error}}</p>
+      </div>
       <div class="form-group text-right">
         <button type="submit" class="btn btn-primary">Sign in</button>
       </div>
@@ -29,10 +32,14 @@ export default {
     }
   },
   methods: {
-    login () {
-      let path = this.$route.query.redirect
-      let response = firebaseHandler.signInFirebase(this.email, this.password)
-      if (response) this.$router.push(path)
+    async login () {
+      try {
+        let path = this.$route.query.redirect
+        await firebaseHandler.signInFirebase(this.email, this.password)
+        this.$router.push(path)
+      } catch (e) {
+        this.error = e.message
+      }
     }
   }
 }
