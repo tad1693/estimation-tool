@@ -10,10 +10,7 @@ firebase.initializeApp(firebaseConfig)
 
 export default {
   signInFirebase (email, password) {
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-      console.error(error.message)
-    })
-    return this.getUser()
+    return firebase.auth().signInWithEmailAndPassword(email, password)
   },
   getUser () {
     return new Promise(resolve => {

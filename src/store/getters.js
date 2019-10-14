@@ -25,19 +25,24 @@ export default {
       return state.stories.filter(valid => {
         return valid.hasOwnProperty('owned_by_id')
       }).map(story => {
-        return {
-          'id': story.id,
-          'description': story.name,
-          'type': story.story_type,
-          'owner': getters.getStoryOwnerName(story.owned_by_id).name,
-          'weightage': (story.hasOwnProperty('estimate')) ? parseInt(story.estimate) : 0,
-          'accepted_at': (story.hasOwnProperty('accepted_at')) ? story.accepted_at : 'working'
+        try {
+          return {
+            'id': story.id,
+            'description': story.name,
+            'type': story.story_type,
+            'owner': getters.getStoryOwnerName(story.owned_by_id).name,
+            'weightage': (story.hasOwnProperty('estimate')) ? parseInt(story.estimate) : 0,
+            'accepted_at': (story.hasOwnProperty('accepted_at')) ? story.accepted_at : 'working'
+          }
+        } catch (e) {
+          console.log(e)
+          console.log('Error occurred with story', story.id)
         }
       }).sort((a, b) => {
         if (a.accepted_at > b.accepted_at) return -1
         if (a.accepted_at < b.accepted_at) return 1
         return 0
-      })
+      }).filter(item => (item))
     }
     return []
   },
