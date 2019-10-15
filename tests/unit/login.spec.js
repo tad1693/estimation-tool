@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
 import Login from '@/views/Login'
 import firebaseHandler from '@/util/firebaseHandler'
 
@@ -16,7 +16,7 @@ const $router = {
 
 describe('Login.vue', () => {
   beforeEach(() => {
-    firebaseHandler.signInFirebase = jest.fn((email, password) =>  {
+    firebaseHandler.signInFirebase = jest.fn((email, password) => {
       return new Promise((resolve, reject) => {
         if (email === 'test@email.com' && password === '1234') {
           resolve()
@@ -58,7 +58,7 @@ describe('Login.vue', () => {
     })
     wrapper.find('#email').setValue('test@email.com')
     wrapper.find('#password').setValue('1234')
-    await wrapper.find('form').trigger('submit')
+    await wrapper.vm.login()
     expect(wrapper.vm.$router.push).toHaveBeenCalled()
   })
 })
