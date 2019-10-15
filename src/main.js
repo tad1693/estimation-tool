@@ -20,7 +20,7 @@ Vue.filter('twoDecimals',
   }
 )
 Vue.filter('formatDate', (dateString) => {
-  return moment(dateString).format('ddd MMM Do YY')
+  return !isNaN(Date.parse(dateString)) ? moment(dateString).format('ddd MMM Do YY') : dateString
 })
 Vue.mixin({
   data () {

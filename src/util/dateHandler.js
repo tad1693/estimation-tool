@@ -9,7 +9,7 @@ export default class DateHandler {
    * @return {moment.Moment}
    */
   getFirstDateOfSprint (date) {
-    let weekString = (date || this.weeklyTag)
+    let weekString = (date || this.weeklyTag).replace(/-/g, '')
     weekString = weekString.substring(weekString.length - 4)
     let week = `${weekString.substring(0, 2)}-${weekString.substring(2, 4)}-19`
     return moment(week, 'MM-DD-YY')
